@@ -3,7 +3,32 @@
     background-color: #E5E5E5;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
+}
+
+
+.sub-header {
+    background-color: #8bc28b;
+    border-bottom: 1px solid #ccc;
+}
+
+.sub-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #333;
+    margin-left: 70px;
+}
+
+#btn-create-header {
+    height: 25px;
+    width: 32px;
+    padding: 12px;
+    font-size: 18px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 70px;
 }
 
 .title {
@@ -27,3 +52,9 @@
 .card-body {
     width: 100%;
 }
+
+.icon-lista{
+    height: 40px;
+    width: 40px;
+}
+

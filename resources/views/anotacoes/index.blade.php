@@ -14,22 +14,23 @@
 </head>
 
 <body class="container">
-    <nav class="navbar navbar-expand-lg d-flex justify-content-center py-3" style="background-color: #58B022;">
+    <nav class="navbar navbar-expand-lg d-flex justify-content-center py-3 fixed-top" style="background-color: #58B022;">
         <ul class="nav nav-pills">
             <li class="nav-item"><a href="/anotacoes" class="nav-link " aria-current="page">Home</a></li>
             <li class="nav-item"><a href="notes" class="nav-link ">Anotações</a></li>
             <li class="nav-item"><a href="" class="nav-link ">About</a></li>
         </ul>
     </nav>
-    <section class="container-fluid d-flex justify-content-center align-items-center">
-        <div class="card d-flex justify-content-center m-5" style="width: 30rem;">
-            <img src="imagens/bgcard.jpg" class="card-img-top" alt="...">
+    <section class="container d-flex flex-column align-items-center">
+        @foreach ($anotacoes as $anotacao)
+        <div class="card mb-4" style="width: 100%; max-width: 30rem;">
+            <img src="imagens/bgcard.jpg" class="card-img-top" alt="Imagem de Fundo">
             <div class="card-body">
-                <h5 class="title" name="title">titulo</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn" style="background-color: #58B022; color:#E5E5E5;">Go somewhere</a>
+                <h5 class="card-title">{{ $anotacao->titulo }}</h5>
+                <p class="card-text">{{ $anotacao->descricao }}</p>
             </div>
         </div>
+        @endforeach
     </section>
 </body>
 

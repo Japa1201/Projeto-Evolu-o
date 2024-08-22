@@ -1,6 +1,7 @@
 .container {
     font-family: 'Roboto', sans-serif;
     background-color: #E5E5E5;
+    padding-top: 50px;
 }
 
 .title {
@@ -19,3 +20,5 @@
 .nav-item a {
     color: #E5E5E5!important;
 }
+
+

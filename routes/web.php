@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\Anotacoes;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AnotacoesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +22,11 @@ Route::get('/', function () {
 Route::get('/notes', function () {
     return view('notes');
 });
+
+Route::get('/index', function () {
+    return view('index')->name('index');
+});
+
+Route::resource('anotacoes', AnotacoesController::class);
+
+
