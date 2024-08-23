@@ -16,15 +16,28 @@
 <body class="container">
     <nav class="navbar navbar-expand-lg d-flex justify-content-center py-3 fixed-top" style="background-color: #58B022;">
         <ul class="nav nav-pills">
-            <li class="nav-item"><a href="/anotacoes" class="nav-link " aria-current="page">Home</a></li>
-            <li class="nav-item"><a href="notes" class="nav-link ">Anotações</a></li>
+            <li class="nav-item"><a href="anotacoes" class="nav-link" aria-current="page">Home</a></li>
+            <li class="nav-item"><a href="anotacoes/show" class="nav-link">Anotações</a></li>
             <li class="nav-item"><a href="" class="nav-link ">About</a></li>
         </ul>
     </nav>
     <section class="container d-flex flex-column align-items-center">
+        <!-- MENSAGEM DE ERRO DO BACK -->
+        @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+        @endif
+
+        <!-- MENSAGEM DE SUCESSO DO BACK -->
+        @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+        @endif
         @foreach ($anotacoes as $anotacao)
         <div class="card mb-4" style="width: 100%; max-width: 30rem;">
-            <img src="imagens/bgcard.jpg" class="card-img-top" alt="Imagem de Fundo">
+            <img src="{{ asset('storage/imagens/' . $anotacao->imagem) }}" class="card-img-top" alt="Imagem de Fundo" style="width: 100%; height: auto; object-fit: cover; max-height: 200px;">
             <div class="card-body">
                 <h5 class="card-title">{{ $anotacao->titulo }}</h5>
                 <p class="card-text">{{ $anotacao->descricao }}</p>

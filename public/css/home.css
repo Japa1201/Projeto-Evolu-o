@@ -17,6 +17,19 @@
     object-fit: cover;
 }
 
+.card {
+    position: relative;
+    overflow: hidden; /* Garante que o conteúdo não ultrapasse os limites do card */
+}
+
+.card-img-top {
+    width: 100%; /* Faz com que a imagem ocupe toda a largura do card */
+    height: auto; /* Mantém a proporção original da altura */
+    object-fit: cover; /* Faz com que a imagem cubra a área do card */
+}
+
+
+
 .nav-item a {
     color: #E5E5E5!important;
 }

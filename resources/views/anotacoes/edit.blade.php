@@ -38,30 +38,31 @@
     </nav>
 
     <section class="container-fluid d-flex justify-content-center align-items-center" style="height: 60vh;">
-        <!-- MENSAGEM DE ERRO DO BACK -->
-        @if (session('error'))
+        <div class="col-md-6">
+            <!-- MENSAGEM DE ERRO DO BACK -->
+            @if (session('error'))
             <div class="alert alert-danger">
                 {{ session('error') }}
             </div>
-        @endif
+            @endif
 
-        <!-- MENSAGEM DE SUCESSO DO BACK -->
-        @if (session('status'))
+            <!-- MENSAGEM DE SUCESSO DO BACK -->
+            @if (session('status'))
             <div class="alert alert-success">
                 {{ session('status') }}
             </div>
-        @endif
+            @endif
+            <form method="POST" action="{{ route('anotacoes.update', $anotacoes->id) }}" enctype="multipart/form-data">
+                {{ csrf_field() }}
+                {{ method_field('PUT') }}
 
-        <div class="col-md-6">
-            <form method="POST" action="{{ route('anotacoes.store') }}" enctype="multipart/form-data">
-                @csrf
                 <div class="mb-3">
                     <label for="titulo" class="form-label">Título</label>
-                    <input type="text" class="form-control custom-border" id="titulo" name="titulo" placeholder="Digite o título" value="{{ old('titulo') }}" required>
+                    <input type="text" class="form-control custom-border" id="titulo" name="titulo" placeholder="Digite o título" value="{{ old('titulo', $anotacoes->titulo) }}" required>
                 </div>
                 <div class="mb-3">
                     <label for="descricao" class="form-label">Descrição</label>
-                    <textarea class="form-control custom-border" id="descricao" name="descricao" rows="3" placeholder="Digite a descrição" required>{{ old('descricao') }}</textarea>
+                    <textarea class="form-control custom-border" id="descricao" name="descricao" rows="3" placeholder="Digite a descrição" value="{{ old('descricao', $anotacoes->descricao) }}" required>{{ old('descricao', $anotacoes->descricao) }}</textarea>
                 </div>
                 <div class="mb-3">
                     <label for="imagem" class="form-label">Upload de Arquivo</label>

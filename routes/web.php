@@ -15,9 +15,7 @@ use App\Http\Controllers\AnotacoesController;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', [AnotacoesController::class, 'index'])->name('home');
 
 Route::get('/notes', function () {
     return view('notes');
@@ -28,5 +26,4 @@ Route::get('/index', function () {
 });
 
 Route::resource('anotacoes', AnotacoesController::class);
-
 
