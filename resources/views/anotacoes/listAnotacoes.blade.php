@@ -16,8 +16,7 @@
     <nav class="navbar navbar-expand-lg d-flex justify-content-center py-3" style="background-color: #58B022;">
         <ul class="nav nav-pills">
             <li class="nav-item"><a href="{{ route('anotacoes.index') }}" class="nav-link" aria-current="page">Home</a></li>
-            <li class="nav-item"><a href="show" class="nav-link">Anotações</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+            <li class="nav-item"><a href="{{ route('anotacoes.listar') }}" class="nav-link">Anotações</a></li>
         </ul>
     </nav>
 

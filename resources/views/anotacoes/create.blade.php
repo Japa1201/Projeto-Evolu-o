@@ -31,25 +31,35 @@
 <body class="container">
     <nav class="navbar navbar-expand-lg d-flex justify-content-center py-3 fixed-top" style="background-color: #58B022;">
         <ul class="nav nav-pills">
-            <li class="nav-item"><a href="anotacoes" class="nav-link" aria-current="page">Home</a></li>
-            <li class="nav-item"><a href="show" class="nav-link">Anotações</a></li>
-            <li class="nav-item"><a href="" class="nav-link ">About</a></li>
+            <li class="nav-item"><a href="{{ route('anotacoes.index') }}" class="nav-link" aria-current="page">Home</a></li>
+            <li class="nav-item"><a href="{{ route('anotacoes.listar') }}" class="nav-link">Anotações</a></li>
         </ul>
     </nav>
 
     <section class="container-fluid d-flex justify-content-center align-items-center" style="height: 60vh;">
         <!-- MENSAGEM DE ERRO DO BACK -->
         @if (session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+        @endif
+
+        <!-- MENSAGEM DE ERROS DE VALIDAÇÃO -->
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
         @endif
 
         <!-- MENSAGEM DE SUCESSO DO BACK -->
         @if (session('status'))
-            <div class="alert alert-success">
-                {{ session('status') }}
-            </div>
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
         @endif
 
         <div class="col-md-6">

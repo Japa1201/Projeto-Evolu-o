@@ -17,13 +17,14 @@ use App\Http\Controllers\AnotacoesController;
 
 Route::get('/', [AnotacoesController::class, 'index'])->name('home');
 
-Route::get('/notes', function () {
-    return view('notes');
-});
-
 Route::get('/index', function () {
     return view('index')->name('index');
 });
+
+Route::get('/show', [AnotacoesController::class, 'show'])->name('anotacoes.show');
+
+Route::get('/anotacoes/listar', [AnotacoesController::class, 'listAnotacoes'])->name('anotacoes.listar');
+
 
 Route::resource('anotacoes', AnotacoesController::class);
 

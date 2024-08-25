@@ -28,7 +28,7 @@ class AnotacoesController extends Controller
         $validatedData = $request->validate([
             'titulo' => 'required|min:5|max:100',
             'descricao' => 'required',
-            'imagem' => 'nullable|mimes:jpeg,png,gif,tiff,svg|max:2048', // validação para o arquivo de imagem
+            'imagem' => 'nullable|image|mimes:jpeg,png,svg', // validação para o arquivo de imagem
         ]);
 
         try {
@@ -55,13 +55,12 @@ class AnotacoesController extends Controller
 
 
 
-    public function show($id)
+    public function listAnotacoes()
     {
-
-        $anotacoes =Anotacoes::all();
-
-        return view('anotacoes.show', compact('anotacoes'));
+        $anotacoes = Anotacoes::all();
+        return view('anotacoes.listAnotacoes', compact('anotacoes'));
     }
+
 
 
     public function edit($id)
@@ -76,11 +75,11 @@ class AnotacoesController extends Controller
         $validatedData = $request->validate([
             'titulo' => 'required|min:5|max:100',
             'descricao' => 'required',
-            'imagem' => 'nullable|image|mimes:jpeg,png,gif,tiff,svg|max:2048',
+            'imagem' => 'nullable|image|mimes:jpeg,png,svg',
         ],[
             'titulo.required' => 'Informe o título da anotação.',
             'descricao.required' => 'Insira uma descrição.',
-            'imagem.mimes' => 'A imagem deve ser um arquivo JPEG, PNG, GIF, TIFF ou SVG.',
+            'imagem.mimes' => 'A imagem deve ser um arquivo JPEG, PNG ou SVG.',
             'imagem.image' => 'O arquivo enviado deve ser uma imagem.',
         ]);
 
