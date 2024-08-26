@@ -1,72 +1,58 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+@extends('component.layout')
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@section('title', 'list')
 
-    <title>Detalhes da Anotação</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/notes.css') }}" media="screen" />
+@section('content')
 
-</head>
+<!-- MENSAGEM DE ERRO DO BACK -->
+@if (session('error'))
+<div class="alert alert-danger mt-3 text-center">
+    {{ session('error') }}
+</div>
+@endif
 
-<body class="container">
-    <nav class="navbar navbar-expand-lg d-flex justify-content-center py-3" style="background-color: #58B022;">
-        <ul class="nav nav-pills">
-            <li class="nav-item"><a href="{{ route('anotacoes.index') }}" class="nav-link" aria-current="page">Home</a></li>
-            <li class="nav-item"><a href="{{ route('anotacoes.listar') }}" class="nav-link">Anotações</a></li>
-        </ul>
-    </nav>
+<!-- MENSAGEM DE SUCESSO DO BACK -->
+@if (session('status'))
+<div class="alert alert-success mt-3 text-center">
+    {{ session('status') }}
+</div>
+@endif
 
-    <header class="sub-header d-flex justify-content-between align-items-center py-2">
+<section class="container mt-4">
+    <header class="sub-header d-flex justify-content-between align-items-center py-2 mt-5 pt-5">
         <h2>Gerenciamento de anotações</h2>
-        <a id="btn-create-header" class="btn btn-success btn-sm" href="{{ route('anotacoes.create') }}" title="Criar Nova Anotação">
-            +
+        <!-- Botão de Criar -->
+        <a id="btn-create-header" class="btn text-white btn-sm fs-6 fw-bold border border-success p-2 mb-2" href="{{ route('anotacoes.create') }}" title="Criar Nova Anotação" style="background-color: #58B022;">
+            Criar +
         </a>
     </header>
-
-    <!-- MENSAGEM DE ERRO DO BACK -->
-    @if (session('error'))
-    <div class="alert alert-danger">
-        {{ session('error') }}
-    </div>
-    @endif
-
-    <!-- MENSAGEM DE SUCESSO DO BACK -->
-    @if (session('status'))
-    <div class="alert alert-success">
-        {{ session('status') }}
-    </div>
-    @endif
-
-    <section class="container-fluid d-flex justify-content-center align-items-center">
-        <div class="container mt-4">
-            @foreach ($anotacoes as $anotacao)
-            <div class="card mb-3">
-                <div class="card-body d-flex justify-content-between align-items-center">
-                    <div>
-                        <h5 class="card-title">{{ $anotacao->titulo }}</h5>
-                        <p class="card-text">{{ $anotacao->descricao }}</p>
-                    </div>
-                    <div>
-                        <a href="{{ route('anotacoes.edit' , $anotacao->id) }}">
-                            <img src="{{ asset('imagens/icon-editar.png') }}" class="icon-lista ms-2" title="Alterar">
-                        </a>
-                        <form action="{{ route('anotacoes.destroy', $anotacao->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-link p-0" title="Excluir" onclick="return confirm('Tem certeza de que deseja excluir esta anotação?');">
-                                <img src="{{ asset('imagens/icon-excluir.png') }}" class="icon-lista ms-2" title="Excluir">
-                            </button>
-                        </form>
-                    </div>
+    @foreach ($anotacoes as $anotacao)
+    <div class="card mb-3">
+        <div class="card-body rounded" style="background-color: gray;">
+            <div class="row">
+                <!-- Coluna para o texto -->
+                <div class="col-md-8">
+                    <h5 class="card-title">{{ $anotacao->titulo }}</h5>
+                    <p class="card-text">{{ $anotacao->descricao }}</p>
+                </div>
+                <!-- Coluna para os botões -->
+                <div class="col-md-4 d-flex align-items-center justify-content-end">
+                    <!-- Botão de Editar -->
+                    <a href="{{ route('anotacoes.edit', $anotacao->id) }}" class="btn p-0 me-2" title="Alterar" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; box-shadow: none; border: none; background: transparent;">
+                        <img src="{{ asset('imagens/icon-editar.png') }}" alt="Editar" style="width: 40px; height: 40px; border-radius: 50%; background-color: #fff;">
+                    </a>
+                    <!-- Botão de Excluir -->
+                    <form action="{{ route('anotacoes.destroy', $anotacao->id) }}" method="POST" class="p-0 m-0">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn p-0" title="Excluir" onclick="return confirm('Tem certeza de que deseja excluir esta anotação?');" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; box-shadow: none; border: none; background: transparent;">
+                            <img src="{{ asset('imagens/icon-excluir.png') }}" alt="Excluir" style="width: 40px; height: 40px; border-radius: 50%; background-color: #fff;">
+                        </button>
+                    </form>
                 </div>
             </div>
-            @endforeach
         </div>
-    </section>
-</body>
-
-</html>
+    </div>
+    @endforeach
+</section>
+@endsection

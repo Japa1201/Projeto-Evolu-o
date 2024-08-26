@@ -21,14 +21,21 @@ class AnotacoesController extends Controller
         return view('anotacoes.create');
     }
 
-
+    // Armazena anotações vindas da view create
     public function store(Request $request)
     {
         // Validação dos dados, incluindo o arquivo de imagem
         $validatedData = $request->validate([
             'titulo' => 'required|min:5|max:100',
-            'descricao' => 'required',
+            'descricao' => 'required|max:499',
             'imagem' => 'nullable|image|mimes:jpeg,png,svg', // validação para o arquivo de imagem
+        ],[
+            // Retorno dos textos resultados de suas requisições
+            'titulo.required' => 'Informe o título da anotação.',
+            'descricao.required' => 'Insira uma descrição.',
+            'descricao.max' =>'O limite máximo da descrição é de 500 caracteres!',
+            'imagem.mimes' => 'A imagem deve ser um arquivo JPEG, PNG ou SVG.',
+            'imagem.image' => 'O arquivo enviado deve ser uma imagem.',
         ]);
 
         try {
@@ -54,7 +61,7 @@ class AnotacoesController extends Controller
     }
 
 
-
+    //criada para ser o gerenciador de anotações
     public function listAnotacoes()
     {
         $anotacoes = Anotacoes::all();
@@ -69,16 +76,19 @@ class AnotacoesController extends Controller
         return view('anotacoes.edit', compact('anotacoes'));
     }
 
-
+    // Edita a anotação
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
             'titulo' => 'required|min:5|max:100',
-            'descricao' => 'required',
+            'descricao' => 'required|max:499',
             'imagem' => 'nullable|image|mimes:jpeg,png,svg',
         ],[
             'titulo.required' => 'Informe o título da anotação.',
+            'titulo.min' =>'O limite mínimo do título é de 5 caracteres!',
+            'titulo.max' =>'O limite máximo do título é de 100 caracteres!',
             'descricao.required' => 'Insira uma descrição.',
+            'descricao.max' =>'O limite máximo da descrição é de 500 caracteres!',
             'imagem.mimes' => 'A imagem deve ser um arquivo JPEG, PNG ou SVG.',
             'imagem.image' => 'O arquivo enviado deve ser uma imagem.',
         ]);
@@ -111,9 +121,10 @@ class AnotacoesController extends Controller
         }
     }
 
-
+    // Exclui a anotação
     public function destroy($id)
     {
+        //trycatch para validação e retorno dos erros
         try {
             $anotacao = Anotacoes::findOrFail($id);
             $anotacao->delete();

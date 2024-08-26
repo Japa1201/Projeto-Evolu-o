@@ -16,15 +16,11 @@ use App\Http\Controllers\AnotacoesController;
 */
 
 Route::get('/', [AnotacoesController::class, 'index'])->name('home');
-
 Route::get('/index', function () {
     return view('index')->name('index');
 });
-
-Route::get('/show', [AnotacoesController::class, 'show'])->name('anotacoes.show');
-
 Route::get('/anotacoes/listar', [AnotacoesController::class, 'listAnotacoes'])->name('anotacoes.listar');
 
-
+// Todos os recursos do CRUD(função de criar,excluir,editar e leitura) - Usar o PHP ARTISAN ROUTE:LIST -V para checar as rotas
 Route::resource('anotacoes', AnotacoesController::class);
 
